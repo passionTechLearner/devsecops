@@ -8,7 +8,7 @@ pipeline {
               archive 'target/*.jar'
             }
         }
-        stage('Unit Tests -JUnit and Jacoco') {
+      stage('Unit Tests -JUnit and Jacoco') {
             steps {
               sh "mvn test"
             }
@@ -18,6 +18,13 @@ pipeline {
                 jacoco execPattern: 'target/jacoco.exec'
               }
             }
+      }
+      stage('Docker Build and push') {
+        steps {
+            sh 'printenv'
+            sh 'docker build -t kalyan947/string-app:""$GIT_COMMIT""'
+            sh 'docker push kalyan947/string-apps:""$GIT_COMMIT""'
         }
+      }
     }
 }
