@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class StringController {
     @GetMapping("reverse/{str}")
     public String reverseString(@PathVariable String str){
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         if(str != null) {
             char[] input = str.toCharArray();
             for(int i=input.length -1; i>=0 ; i--){
