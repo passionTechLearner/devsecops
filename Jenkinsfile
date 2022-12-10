@@ -31,7 +31,7 @@ pipeline {
       stage('Kubernetes Deployment -Dev') {
         steps {
             sh "sed -i 's#replace#kalyan947/string-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
-            sh "mircok8s kubectl apply -f k8s_deployment_service.yaml"
+            sh "mircok8s.kubectl apply -f k8s_deployment_service.yaml"
         }
       }
     }
