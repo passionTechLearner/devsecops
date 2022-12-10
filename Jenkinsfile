@@ -29,6 +29,13 @@ pipeline {
               }
             }
       }
+      //***JENKINS_SERVER_URL***/job/***JENKINS_JOB_NAME***/build?token=***JENKINS_BUILD_TRIGGER_TOKEN***
+      stage('SonarQube Analysis') {
+        withSonarQubeEnv() {
+          sh "mvn clean verify sonar:sonar -Dsonar.projectKey=string-app"
+        }
+      }
+
       stage('Docker Build and push') {
         steps {
             withDockerRegistry([credentialsId:"docker-hub",url:""]) {
