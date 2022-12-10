@@ -33,7 +33,7 @@ pipeline {
             withKubeConfig([credentialsId: "kubeconfig"]) {
                 sh "alias kubectl= 'microk8s version'"
                 sh "sed -i 's#replace#kalyan947/string-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
-                sh "microk8s kubectl apply -f k8s_deployment_service.yaml"
+                sh "kubectl apply -f k8s_deployment_service.yaml"
             }
         }
       }
