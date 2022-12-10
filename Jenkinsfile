@@ -31,7 +31,7 @@ pipeline {
       stage('Kubernetes Deployment -Dev') {
         steps {
             withKubeConfig([credentialsId: "kubeconfig"]) {
-                sh "alias kubectl= 'microk8s version'"
+                sh "alias kubectl= 'microk8s kubectl'"
                 sh "sed -i 's#replace#kalyan947/string-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
                 sh "kubectl apply -f k8s_deployment_service.yaml"
             }
