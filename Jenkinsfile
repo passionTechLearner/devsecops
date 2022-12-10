@@ -21,9 +21,11 @@ pipeline {
       }
       stage('Docker Build and push') {
         steps {
-            sh 'printenv'
-            sh 'docker build -t kalyan947/string-app:""$GIT_COMMIT"" .'
-            sh 'docker push kalyan947/string-apps:""$GIT_COMMIT""'
+            withDockerRegistry([credentialsId:"docker-hub",url:""]) {
+                sh 'printenv'
+                sh 'docker build -t kalyan947/string-app:""$GIT_COMMIT"" .'
+                sh 'docker push kalyan947/string-apps:""$GIT_COMMIT""'
+            }
         }
       }
     }
