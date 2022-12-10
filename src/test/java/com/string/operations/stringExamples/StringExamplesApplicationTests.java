@@ -21,7 +21,7 @@ class StringExamplesApplicationTests {
 	private MockMvc mockMvc;
 
 	@Test
-	public void stringOperations() throws Exception {
+	void stringOperations() throws Exception {
 		this.mockMvc.perform(get("/str/reverse/abc"))
 				.andDo(print())
 				.andExpect(status().isOk())
