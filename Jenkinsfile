@@ -12,22 +12,22 @@ pipeline {
             steps {
               sh "mvn test"
             }
-            post {
+            /* post {
               always {
-                junit 'target/surefire-reports/*.xml'
+                junit 'target/surefire-reports *//*.xml'
                 jacoco execPattern: 'target/jacoco.exec'
               }
-            }
+            } */
       }
       stage('Mutation Tests - PIT') {
             steps {
               sh "mvn org.pitest:pitest-maven:mutationCoverage"
             }
-            post {
+            /* post {
               always {
-                pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
+                pitmutation mutationStatsFile: '**//* target/pit-reports *//**//* mutations.xml'
               }
-            }
+            } */
       }
       //***JENKINS_SERVER_URL***/job/***JENKINS_JOB_NAME***/build?token=***JENKINS_BUILD_TRIGGER_TOKEN***
       stage('SonarQube - SAST') {
@@ -47,11 +47,11 @@ pipeline {
             steps {
                 sh "mvn dependency-check:check"
             }
-            post {
+           /*  post {
               always {
                 dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
               }
-           }
+           } */
       }
 
 
@@ -71,6 +71,15 @@ pipeline {
                 sh "microk8s kubectl apply -f k8s_deployment_service.yaml"
             }
         }
+      }
+    }
+
+    post {
+      always {
+        junit 'target/surefire-reports/*.xml'
+        jacoco execPattern: 'target/jacoco.exec'
+        pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
+        dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
       }
     }
 }
