@@ -32,7 +32,7 @@ pipeline {
       //***JENKINS_SERVER_URL***/job/***JENKINS_JOB_NAME***/build?token=***JENKINS_BUILD_TRIGGER_TOKEN***
       stage('SonarQube Analysis') {
         steps {
-            sh "mvn clean verify sonar:sonar -Dsonar.projectKey=string-app"
+            sh "mvn sonar:sonar -Dsonar.projectKey=string-app -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqp_2657b0e8967b85cdb521c68881ad50298865c2b4"
         }
       }
 
