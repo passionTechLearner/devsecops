@@ -77,12 +77,29 @@ pipeline {
             }
       }
 
-      stage('Kubernetes Deployment -Dev') {
+      /* stage('Kubernetes Deployment -Dev') {
         steps {
             withKubeConfig([credentialsId: "kubeconfig"]) {
                 sh "sed -i 's#replace#kalyan947/string-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
                 sh "microk8s kubectl apply -f k8s_deployment_service.yaml"
             }
+        }
+      } */
+
+      stage() {
+        steps {
+            parallel(
+                "Deployment": {
+                    withKubeConfig([credentialsId: "kubeconfig"]) {
+                        sh "bash k8s_deployment.sh"
+                    }
+                },
+                "Rollout Status": {
+                   withKubeConfig([credentialsId: "kubeconfig"]) {
+                       sh "bash k8s_rollout.sh"
+                   }
+                }
+            )
         }
       }
     }
