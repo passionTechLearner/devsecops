@@ -1,6 +1,13 @@
 pipeline {
   agent any
 
+  environment {
+    deploymentName = "devsecops"
+    containerName = "devsecops-container"
+    serviceName = "devsecops-svc"
+    imageName = "kalyan947/string-app:${GIT_COMMIT}"
+  }
+
   stages {
       stage('Build Artifact- Maven') {
             steps {
