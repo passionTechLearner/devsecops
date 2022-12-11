@@ -37,7 +37,7 @@ pipeline {
             } */
       }
       //***JENKINS_SERVER_URL***/job/***JENKINS_JOB_NAME***/build?token=***JENKINS_BUILD_TRIGGER_TOKEN***
-      stage('SonarQube - SAST') {
+      /* stage('SonarQube - SAST') {
         steps {
             withSonarQubeEnv('sonarqube') {
                 sh "mvn sonar:sonar -Dsonar.projectKey=string-app -Dsonar.host.url=http://localhost:9000"
@@ -48,7 +48,7 @@ pipeline {
                 }
             }
         }
-      }
+      } */
 
       stage('Vulnerability Scan - Docker') {
             steps {
