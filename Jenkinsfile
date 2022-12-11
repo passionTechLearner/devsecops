@@ -86,7 +86,7 @@ pipeline {
         }
       } */
 
-      stage() {
+      stage('Kubernetes Deployment -Dev') {
         steps {
             parallel(
                 "Deployment": {
